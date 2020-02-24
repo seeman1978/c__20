@@ -3,4 +3,4 @@ project(c__20)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(c__20 Future.cpp)
+add_executable(c__20 Bind.cpp)

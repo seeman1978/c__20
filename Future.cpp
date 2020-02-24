@@ -3,56 +3,66 @@
 //
 
 #include <vector>
+#include <queue>
 #include <thread>
 #include <future>
 #include <numeric>
 #include <iostream>
 #include <chrono>
 
-void accumulate(int nNum,
-                std::promise<int> accumulate_promise,
-                std::future<int> barrier_future)
+std::condition_variable cv;
+std::mutex cv_m; // This mutex is used for three purposes:
+// 1) to synchronize accesses to i
+// 2) to synchronize accesses to std::cerr
+// 3) for the condition variable cv
+int sum = 0;
+std::queue<int> queSum;
+
+void accumulate(int nNum)
 {
     int nCount = 0;
-    int sum = 0;
+    std::unique_lock<std::mutex> lk(cv_m);
     do
     {
-        sum += barrier_future.get();
+        cv.wait(lk);
+        {
+            std::lock_guard<std::mutex> lk(cv_m);
+            sum += queSum.front();
+            queSum.pop();
+        }
+
         if (++nCount == nNum){
             break;
         }
     }while (true);
-
-    accumulate_promise.set_value(sum);  // Notify future
 }
 
 void mypower(std::vector<int>::iterator first,
-             std::vector<int>::iterator last,
-             std::promise<int> barrier)
+             std::vector<int>::iterator last)
 {
+    std::this_thread::sleep_for(std::chrono::seconds(1));
     for (std::vector<int>::iterator i = first; i != last; ++i) {
         int j = (*i)*(*i);
-        barrier.set_value(j);
+        std::lock_guard<std::mutex> lk(cv_m);
+        queSum.push(j);
+        cv.notify_one();
     }
 }
 
 int main()
 {
     // Demonstrate using promise<int> to transmit a result between threads.
-    std::vector<int> numbers = { 1, 2, 3, 4, 5, 6 };
-    std::promise<int> barrier;
-    std::future<int> barrier_future = barrier.get_future();
-    std::thread new_work_thread(mypower, numbers.begin(), numbers.end(), std::move(barrier));
+    std::vector<int> numbers = { 6 };
 
+    std::thread sum_thread(accumulate, numbers.size());
 
-    std::promise<int> accumulate_promise;
-    std::future<int> accumulate_future = accumulate_promise.get_future();
-    std::thread work_thread(accumulate, numbers.size(),
-                            std::move(accumulate_promise), std::move(barrier_future));
+    std::thread powerthread(mypower, numbers.begin(), numbers.end());
+
+    sum_thread.join();
 
     // future::get() will wait until the future has a valid result and retrieves it.
     // Calling wait() before get() is not needed
     //accumulate_future.wait();  // wait for result
-    std::cout << "result=" << accumulate_future.get() << '\n';
-    work_thread.join();
+    std::cout << "result=" << sum << '\n';
+
 }
