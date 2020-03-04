@@ -23,6 +23,11 @@ void print_ids(const ids& i)
          << get<2>(i) << " )." << endl;
 }
 
+ids getids()
+{
+    return ids(10, 5.8, "hello");
+}
+
 int main( )
 {
     // Using the constructor to declare and initialize a tuple
@@ -54,4 +59,6 @@ int main( )
     {
         print_ids(*i);
     }
+
+    print_ids(getids());
 }

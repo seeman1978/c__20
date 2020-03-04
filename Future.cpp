@@ -9,7 +9,7 @@
 #include <numeric>
 #include <iostream>
 #include <chrono>
-
+#include <semaphore>
 std::condition_variable cv;
 std::mutex cv_m; // This mutex is used for three purposes:
 // 1) to synchronize accesses to i
@@ -17,14 +17,15 @@ std::mutex cv_m; // This mutex is used for three purposes:
 // 3) for the condition variable cv
 int sum = 0;
 std::queue<int> queSum;
+std::counting_semaphore sema(20);
 
 void accumulate(int nNum)
 {
     int nCount = 0;
-    std::unique_lock<std::mutex> lk(cv_m);
+
     do
     {
-        cv.wait(lk);
+        sema.acquire();
         {
             std::lock_guard<std::mutex> lk(cv_m);
             sum += queSum.front();
@@ -45,7 +46,7 @@ void mypower(std::vector<int>::iterator first,
         int j = (*i)*(*i);
         std::lock_guard<std::mutex> lk(cv_m);
         queSum.push(j);
-        cv.notify_one();
+        sema.release();
     }
 }
 
