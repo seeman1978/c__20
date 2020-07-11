@@ -4,7 +4,7 @@ project(c__20)
 set(CMAKE_CXX_STANDARD 20)
 set(libpq_DIR /usr/local/pqsql/lib)
 
-add_executable(c__20 pgsql_listen.cpp)
+add_executable(c__20 pg_listen2.cpp)
 
 # linking
-target_link_libraries(c__20 pq)
+target_link_libraries(c__20 pq pthread)
