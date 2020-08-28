@@ -6,6 +6,11 @@
 class CA
 {};
 
+class CB
+{
+    int m_i;
+};
+
 int main()
 {
     printf("char length:%d\n", sizeof(char));
@@ -13,4 +18,7 @@ int main()
     printf("double length:%d\n", sizeof(double));
     CA a;
     printf("Class A length:%d\n", sizeof(CA));
+
+    CB b;
+    printf("Class B length:%d\n", sizeof(b));
 }
