@@ -21,4 +21,7 @@ int main()
 
     CB b;
     printf("Class B length:%d\n", sizeof(b));
+
+    std::unique_ptr<int> p {new int{9} };
+    printf("pointer length is %d", sizeof(p));
 }
