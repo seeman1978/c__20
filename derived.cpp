@@ -65,7 +65,40 @@ private:
     D m_d;
 };
 
+class shape{
+public:
+    shape():m_pI{new int{8}}{
+        std::cout << "create shape " << std::endl;
+    };
+    ~shape(){
+        delete m_pI;
+        m_pI = nullptr;
+        std::cout << "destroy shape " << std::endl;
+    }
+
+private:
+    int* m_pI;
+};
+
+class circle:public shape{
+public:
+    circle():m_pI2{new int{3}}{
+        std::cout << "create circle " << std::endl;
+    }
+    ~circle(){
+        delete m_pI2;
+        m_pI2 = nullptr;
+        std::cout << "destroy shape " << std::endl;
+    }
+private:
+    int* m_pI2;
+};
+
 int main(){
     B b(10);
     b.f();
+
+    shape* pShape = new circle();
+    delete pShape;
+    pShape = nullptr;
 }
