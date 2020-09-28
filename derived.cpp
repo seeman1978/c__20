@@ -26,6 +26,16 @@ public:
     }
 };
 
+class E{
+public:
+    E(){
+        std::cout << "class E " << std::endl;
+    }
+    virtual ~E(){
+        std::cout << "class E destroy " << std::endl;
+    }
+};
+
 class A{
 public:
     A(){
@@ -41,6 +51,8 @@ public:
 
 protected:
     int m_i;
+private:
+    E m_e;
 };
 
 class B: A{
