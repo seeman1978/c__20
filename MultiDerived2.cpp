@@ -44,6 +44,6 @@ int main(){
     std::cout << sizeof(d) << std::endl;    //8
 
     DD dd;
-    std::cout << sizeof(dd) << std::endl;   //24 因为要保存虚函数表指针
+    std::cout << sizeof(dd) << std::endl;   //24 因为要保存虚函数表指针，每一个基类有一个虚指针vptr，在64位系统中vptr的size是8
 }
 
