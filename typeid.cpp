@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <typeinfo>
+#include <typeindex>
 
 class Base {
 public:
@@ -11,6 +12,8 @@ public:
 };
 
 class Derived : public Base {};
+
+class A{};
 
 using namespace std;
 int main() {
@@ -21,4 +24,12 @@ int main() {
     cout << typeid( pd ).name() << endl;   //prints "class Derived *"
     cout << typeid( *pd ).name() << endl;   //prints "class Derived"
     delete pd;
+
+    A a;
+    A& rA {a};
+    const std::type_info& ti1 = typeid(a);
+    const std::type_info& ti2 = typeid(a);
+    assert(&ti1 == &ti2); // not guaranteed
+    assert(ti1.hash_code() == ti2.hash_code()); //guaranteed
+    assert(std::type_index(ti1) == std::type_index(ti2));      //guaranteed
 }
