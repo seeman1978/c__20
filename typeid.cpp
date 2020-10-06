@@ -8,6 +8,7 @@
 
 class Base {
 public:
+    virtual ~Base()=default;
     virtual void vvfunc() {}
 };
 
@@ -19,9 +20,12 @@ using namespace std;
 int main() {
     Derived* pd = new Derived;
     Base* pb = pd;
-    cout << typeid( pb ).name() << endl;   //prints "class Base *"
+    Base& rBase = *pd;
+
+    cout << typeid( pb ).name() << endl;    //prints "class Base *"
     cout << typeid( *pb ).name() << endl;   //prints "class Derived"
-    cout << typeid( pd ).name() << endl;   //prints "class Derived *"
+    cout << typeid(rBase).name() << endl;   //prints "class Derived"
+    cout << typeid( pd ).name() << endl;    //prints "class Derived *"
     cout << typeid( *pd ).name() << endl;   //prints "class Derived"
     delete pd;
 
