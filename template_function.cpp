@@ -5,6 +5,7 @@
 #include <iostream>
 #include <vector>
 
+//类型作为实参
 template<typename T>
 void f(const T& var){
     T temp = var + 1.0;
@@ -23,6 +24,19 @@ T get2(C& c, int n)
     return c[n];
 }
 
+//值作为实参
+template<typename T, int max>
+void func1(const T& var){
+    T temp = var + max;
+    std::cout << temp << std::endl;
+}
+
+template<int max, typename T>
+void func2(const T& var){
+    T temp = var + max;
+    std::cout << temp << std::endl;
+}
+
 int main(){
     f(7);   //推断类型int
     f<double>(7.0);   //显示指定类型
@@ -31,4 +45,8 @@ int main(){
     //int i = get<std::vector<int> >(vec, 1); //不能推断模版参数T,因为函数返回值的类型不能推断
     int i = get2<int>(vec, 1);
     std::cout << i << std::endl;
+
+    func1<int, 8>(7);
+
+    func2<8>(7);
 }
