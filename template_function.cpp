@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <vector>
+#include <string>
 
 //类型作为实参
 template<typename T>
@@ -37,6 +38,12 @@ void func2(const T& var){
     std::cout << temp << std::endl;
 }
 
+//字符串字面值常量不能作为模板实参
+template<typename T, char* label>
+void func3(const T& var){
+    std::cout << var << " " << label << std::endl;
+}
+
 int main(){
     f(7);   //推断类型int
     f<double>(7.0);   //显示指定类型
@@ -49,4 +56,9 @@ int main(){
     func1<int, 8>(7);
 
     func2<8>(7);
+
+    //func3<std::string, "world">("hello"); //字符串字面值常量不能作为模板实参
+
+    /*char str[] = "world";
+    func3<std::string, str>("hello");*/
 }
