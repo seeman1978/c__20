@@ -7,7 +7,7 @@ set(libpq_DIR /usr/local/pqsql/lib)
 INCLUDE_DIRECTORIES(Shared_library)
 LINK_DIRECTORIES(Shared_library/cmake-build-debug/lib)
 
-add_executable(c__20 InvokeSharedLibrary.cpp)
+add_executable(c__20 is_integral.cpp)
 
 # linking
 target_link_libraries(c__20 pq pthread shared_library)
