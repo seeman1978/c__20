@@ -77,8 +77,6 @@ public:
         return elems.data();
     }
 
-<<<<<<< HEAD
-=======
     //下标和切片
     template<typename... Args>
     Enable_if<Matrix_impl::Requesting_element<Args...>(), T&>
@@ -150,14 +148,12 @@ public:
     Matrix& operator-=(const M& x);
 
 
->>>>>>> origin/master
 private:
     Matrix_slice<N> desc;   //定义N个维度大小的切片
     std::vector<T> elems;   //元素
 };
 
-<<<<<<< HEAD
-=======
+
 template<typename T, size_t N>
 Matrix<T, N> operator+(const Matrix<T,N>& m, const T& value){
     Matrix<T, N> res = m;
@@ -172,5 +168,11 @@ Matrix<T, N> operator+(const Matrix<T,N>& a, const Matrix<T,N>& b){
     return res;
 }
 
->>>>>>> origin/master
+template<typename T, typename T2, size_t N,
+        typename RT= Matrix<Common_Type<Value_type<T>, Value_type<T2>>, N>
+        Matrix<RT, N> operator+(const Matrix<T,N>&a, const Matrix<T2, N>& b){
+            Matrix<RT, N> res = a;
+            res += b;
+            return res;
+        };
 #endif //C__20_MATRIX_H
