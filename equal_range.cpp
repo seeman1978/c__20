@@ -17,16 +17,17 @@ struct S
 int main()
 {
     // note: not ordered, only partitioned w.r.t. S defined below
-    std::vector<S> vec = { {1,'A'}, {2,'B'}, {2,'C'}, {4,'G'}, {3,'F'}, {2,'D'} };
+    std::vector<S> vec = {{1,'A'}, {4,'B'}, {3,'C'}, {2,'F'} , {4,'G'}, {2,'D'}};
 
     S value = {2, '?'};
 
     auto p = std::equal_range(vec.begin(), vec.end(), value);
-
-    for ( auto i = p.first; i != p.second; ++i )
+    for ( auto i = p.first; i != p.second; ++i ){
         std::cout << i->name << ' ';
+    }
 
 
+    std::cout << '\n';
     // heterogeneous comparison:
     struct Comp
     {
@@ -36,6 +37,10 @@ int main()
 
     auto p2 = std::equal_range(vec.begin(),vec.end(), 2, Comp{});
 
-    for ( auto i = p2.first; i != p2.second; ++i )
+    for ( auto i = p2.first; i != p2.second; ++i ){
         std::cout << i->name << ' ';
+    }
+
+
+
 }
