@@ -1,10 +1,10 @@
+
 //
 // Created by zhaoyue on 2020/10/14.
 //
 
 #include <tuple>
 #include <iostream>
-#include <string>
 #include <stdexcept>
 
 std::tuple<double, char, std::string> get_student(int id){
@@ -18,7 +18,7 @@ int main(){
     auto student0 = get_student(0);
 
     std::cout << "id 0, "
-                << "GPA:" << std::get<0>(student0);
+              << "GPA:" << std::get<0>(student0);
     std::cout << ", grade:" << std::get<1>(student0);
     std::cout << ", name:" << std::get<2>(student0) << std::endl;
 
