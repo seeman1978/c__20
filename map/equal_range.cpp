@@ -54,4 +54,18 @@ int main()
             std::cout << "unexpected ppp.second\n";
         }
     }
+
+    {
+        std::multimap<std::string, int> mm{{"apple", 2}, {"apple", 3},{"pear", 4},{"orange", 5},{"peach", 6},{"apple", 7}};
+        auto pp = mm.equal_range("apple");
+        if (pp.first == pp.second){
+            std::cout << "no element with value apple \n";
+        }
+        else{
+            std::cout << "elements with value apple : \n";
+            for (auto p=pp.first; p!=pp.second; ++p) {
+                std::cout << p->second << ' ';
+            }
+        }
+    }
 }
