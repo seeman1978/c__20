@@ -19,6 +19,7 @@ int main(){
     if (all_of(v.cbegin(), v.cend(), [](int i){ return i%2 == 0;})){
         std::cout << "All numbers are even\n";
     }
+    //std::modulus::operator() modulus模板类，取余
     if (std::none_of(v.cbegin(), v.cend(), bind(modulus<int>(), placeholders::_1, 2))){
         cout << "None of them are odd\n";
     }
