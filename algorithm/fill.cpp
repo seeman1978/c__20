@@ -2,7 +2,6 @@
 // Created by wq on 2020/10/25.
 //
 
-#include <algorithm>
 #include <vector>
 #include <iostream>
 #include <iterator>
