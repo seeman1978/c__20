@@ -4,8 +4,7 @@
 
 #include <vector>
 #include <iostream>
-#include <algorithm>
-
+#include <algorithm>obstack
 int main()
 {
     {
