@@ -10,7 +10,7 @@ struct A{
     int i {9};
     std::string str {"hello"};
     A():i{10}, str{"world"}{}
-    A(int i, const std::string str){
+    A(int i, const std::string& str){
         this->i = i;
         this->str = str;
     }
