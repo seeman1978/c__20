@@ -8,7 +8,7 @@
 
 void slow_motion()
 {
-    static int a[] {1,2,3,4,5};
+    static int a[] {1,2,3,4,5,6,7,8,9,10,11,12};
     while (std::next_permutation(std::begin(a), std::end(a))) {
 
     }
@@ -25,9 +25,9 @@ int main(){
             std::cout << "Insane!\n";
         }
     }
-    {
-        auto tp = steady_clock::now();
-        auto d1 = time_point_cast<hours>(tp).time_since_epoch().count()/24; //从纪元开始到现在的天数
+    {//这里不能使用steady_clock. This steady_clock is not related to wall clock time (for example, it can be time since last reboot)
+        auto tp = system_clock::now();
+        auto d1 = time_point_cast<std::chrono::hours>(tp).time_since_epoch().count()/24; //从纪元开始到现在的天数
         using days = duration<long, std::ratio<24*60*60, 1>>; // one day
         auto d2 = time_point_cast<days>(tp).time_since_epoch().count(); //从纪元开始到现在的天数
         if (d1 != d2){

@@ -10,7 +10,7 @@ void f(){
 
     }
 }
-
+//This clock is not related to wall clock time (for example, it can be time since last reboot)
 int main(){
     using namespace std::chrono;
 

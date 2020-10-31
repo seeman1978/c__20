@@ -18,4 +18,9 @@ int main(){
             << duration_cast<hours>(p1.time_since_epoch()).count() << " hours.\n";
     std::cout << "yesterday , hours since epoch: "
             << duration_cast<hours>(p2.time_since_epoch()).count() << " hours.\n";
+
+    std::cout << "hours since epoch: "
+              << time_point_cast<hours>(p1).time_since_epoch().count()  << " hours.\n";
+    std::cout << "yesterday , hours since epoch: "
+              << time_point_cast<hours>(p2).time_since_epoch().count() << " hours.\n";
 }
