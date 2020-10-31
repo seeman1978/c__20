@@ -51,9 +51,8 @@ int main(){
     observer();
 
     {
-        A *pA = new A();
-        B* pB = new B(pA);
-        A* pA2 = new A(pB);
-
+        std::shared_ptr<A> pA = std::make_shared<A>();
+        std::shared_ptr<B> pB = std::make_shared<B>(pA.get());
+        std::shared_ptr<A> pA2 = std::make_shared<A>(pB.get());
     }
 }
