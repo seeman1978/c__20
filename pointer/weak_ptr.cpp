@@ -10,7 +10,7 @@ struct B;
 
 struct A{
     A()=default;
-    A(B* pB){
+    explicit A(B* pB){
         m_pB = pB;
     }
     ~A(){
@@ -21,7 +21,7 @@ struct A{
 
 struct B{
     B()=default;
-    B(A* pA){
+    explicit B(A* pA){
         m_pA = pA;
     }
     ~B(){
@@ -40,7 +40,7 @@ struct C{
 
 struct D{
     D()=default;
-    D(std::shared_ptr<A> pA){
+    explicit D(std::shared_ptr<A> pA){
         m_pA = pA;
     }
     ~D(){
