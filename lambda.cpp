@@ -6,7 +6,14 @@
 
 int main()
 {
-    auto glambda = [](auto a, auto b) { auto c = a + b; auto d = c*c; return d; };
-    double b = glambda(3, 3.14); // ok
-    std::cout << b;
+    {
+        auto glambda = [](auto a, auto b) { auto c = a + b; auto d = c*c; return d; };
+        double b = glambda(3, 3.14); // ok
+        std::cout << b << std::endl;
+    }
+    {
+        auto glambda = []<typename T>(const T a, const T b) { T c = a + b; T d = c*c; return d; };
+        double b = glambda(3, 5); // ok, 3.14 will be failed here.
+        std::cout << b;
+    }
 }
