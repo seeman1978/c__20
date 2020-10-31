@@ -19,5 +19,4 @@ int main(){
     steady_clock::time_point t2 = steady_clock::now();
     steady_clock::duration d = t2 - t1;
     std::cout << "something took " << duration_cast<milliseconds>(d).count() << "ms" << std::endl;
-
 }

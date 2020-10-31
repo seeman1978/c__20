@@ -33,6 +33,11 @@ int main(){
         if (d1 != d2){
             std::cout << "Impossible!\n";
         }
+
+        std::cout << "days since epoch: "
+                  << d1 << " days.\n";
+        std::cout << "days since epoch: "
+                  << d2 << " days.\n";
     }
     {
         using namespace std::literals; // enables the usage of 24h instead of std::chrono::hours(24)
