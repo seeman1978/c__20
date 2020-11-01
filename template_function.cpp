@@ -44,6 +44,11 @@ void func3(const T& var){
     std::cout << var << " " << label << std::endl;
 }
 
+template <typename T>
+void func4(T t1, T t2){
+    std::cout << t1 + t2 << std::endl;
+}
+
 int main(){
     f(7);   //推断类型int
     f<double>(7.0);   //显示指定类型
@@ -56,6 +61,10 @@ int main(){
     func1<int, 8>(7);
 
     func2<8>(7);
+
+    func4(4,5);
+
+    //func4(1.2, 7);   // 类型不匹配
 
     //func3<std::string, "world">("hello"); //字符串字面值常量不能作为模板实参
 
