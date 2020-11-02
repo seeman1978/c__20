@@ -6,6 +6,7 @@
 #include <numeric>
 #include <iomanip>
 #include <chrono>
+#include <vector>
 volatile int sink;
 int main(){
     std::cout << std::fixed << std::setprecision(9) << std::left;
