@@ -4,12 +4,9 @@
 
 //do not mix std::cout and std::wcout.
 //first you need to install Swedish on region and language on OS
-#include <locale>
 #include <iostream>
 #include <string>
 #include <vector>
-#include <algorithm>
-#include <sstream>
 
 int main()
 {
