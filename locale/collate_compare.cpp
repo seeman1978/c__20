@@ -2,7 +2,6 @@
 // Created by wq on 2020/11/6.
 //
 
-#include <locale>
 #include <iostream>
 
 template<typename T>
