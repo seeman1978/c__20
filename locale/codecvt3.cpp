@@ -8,6 +8,7 @@
 #include <iostream>
 #include <codecvt>
 #include <vector>
+#include <locale>
 int main(){
     using namespace std;
     {

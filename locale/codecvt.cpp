@@ -5,6 +5,7 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <locale>
 
 // utility wrapper to adapt locale-bound facets for wstring/wbuffer convert
 template<class Facet>
