@@ -27,7 +27,7 @@ int main(){
         << std::put_money(12345678.0) << '\n';
 
     std::unique_ptr<space_out> myMoney = std::make_unique<space_out>();
-    std::cout.imbue(std::locale(std::cout.getloc(), myMoney.get()));
+    std::cout.imbue(std::locale(std::cout.getloc(), myMoney.release()));
     std::cout << "locale with modified moneypunct: "
               << std::put_money(12345678.0)<< '\n';
 }
