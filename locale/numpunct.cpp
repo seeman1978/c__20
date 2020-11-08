@@ -7,10 +7,10 @@
 
 struct french_bool : std::numpunct<char>{
     french_bool()=default;
-    string_type do_truename() const override{
+    [[nodiscard]] string_type do_truename() const override{
         return "vrai";
     }
-    string_type do_falsename() const override{
+    [[nodiscard]] string_type do_falsename() const override{
         return "faux";
     }
 };
@@ -21,10 +21,10 @@ struct my_numpunct : public std::numpunct<char>{
     }
 
 protected:
-    char do_thousands_sep() const override{
+    [[nodiscard]] char do_thousands_sep() const override{
         return '_';
     }
-    std::string do_grouping() const override{
+    [[nodiscard]] std::string do_grouping() const override{
         return "\004";
     }
 };
