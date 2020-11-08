@@ -23,7 +23,7 @@ struct space_out : std::moneypunct<char>{
 
 int main(){
     std::cout.imbue(std::locale("en_US.UTF-8"));
-    std::cout << "Americal locale: " << std::showbase
+    std::cout << "Americal locale: " << std::showbase   //The showbase flag affects the behavior of integer output ,monetary input and monetary output
         << std::put_money(12345678.0) << '\n';
 
     std::unique_ptr<space_out> myMoney = std::make_unique<space_out>();
