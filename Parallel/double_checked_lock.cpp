@@ -4,6 +4,7 @@
 
 #include <mutex>
 #include <iostream>
+#include <atomic>
 
 struct X{
     int i=0;
