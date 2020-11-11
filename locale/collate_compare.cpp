@@ -18,7 +18,7 @@ void try_compare(const std::locale& l, const T* p1, const T* p2){
 
 int main(){
     std::locale::global(std::locale("en_US.utf-8"));
-    std::wcout.imbue(std::locale());
+    std::wcout.imbue(std::locale("sv_SE.utf-8"));
     std::wcout << "In the American locale: ";
     try_compare(std::locale(), "hrnec", "chrt");
     std::wcout << "In the Czech locale: ";
