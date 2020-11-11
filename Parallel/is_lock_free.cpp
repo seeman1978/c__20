@@ -4,11 +4,11 @@
 
 #include <array>
 #include <iostream>
+#include <atomic>
 
 //X上的操作有没有锁，没锁，返回true；有锁，返回false
 struct A{
     std::array<int, 100> a; //a[100]
-
 };
 
 struct B{
