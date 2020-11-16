@@ -24,7 +24,7 @@ int main(){
     auto v1 = pt1.get_future();
     auto v2 = pt2.get_future();
 
-    try {
+    try {//The get method waits until the future has a valid result
         std::cout << v1.get() << '\n';
         std::cout << v2.get() << '\n';
     }
