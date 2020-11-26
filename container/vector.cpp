@@ -29,4 +29,8 @@ int main(){
             cout << a.i << " " << a.str << '\n';
         }
     }
+    {//效率更高
+        vector<A> v1;
+        v1.reserve(5);  //不会构造5个对象A。另外不能使用reserve缩减内存
+    }
 }
