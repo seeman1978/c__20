@@ -32,6 +32,8 @@ int main(){
     B b;
     b.func();
 
+    //B b2{10, "hello"};
+
     C c{10, "hello"};
     c.func();
 }
