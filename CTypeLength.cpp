@@ -53,4 +53,12 @@ int main()
     f();
 
     struct s temp {1, "hello"};
+
+    int arrInt[5]{1,2,3,4,5};
+    int* pI2 = arrInt;
+    std::cout << "array size : " << sizeof(pI2) << ". element cout is " << sizeof(pI2)/sizeof(pI2[0])<< '\n';   //error
+    std::cout << "array size : " << sizeof(arrInt) << ". element cout is " << sizeof(arrInt)/sizeof(arrInt[0])<< '\n';  //true
+    int* pI = new int[5]{1,2,3,4,5};
+    std::cout << "array size : " << sizeof(pI) << ". element cout is " << sizeof(pI)/sizeof(pI[0])<< '\n';   //error
+
 }
