@@ -13,7 +13,7 @@ int main(){
     regex reg{R"(<(.*)>([^>]*)</(\1)>)"};  //.*表示不包括换行符的任意字符。
 
     sregex_iterator pos{data.cbegin(), data.cend(), reg};
-    sregex_iterator end;
+    sregex_iterator end;    //default构造函数给出末尾的下一位置，就是结束的位置
 
     for (;  pos!=end; ++pos) {
         cout << "match: " << pos->str() << '\n';
