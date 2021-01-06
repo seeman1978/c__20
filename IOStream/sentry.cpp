@@ -18,6 +18,6 @@ std::ostream& operator<<(std::ostream& os, const Foo& f){
 }
 
 int main(){
-    Foo f{"abcde"};
+    Foo f{"  abcde"};
     std::cout << f << '\n';
 }
