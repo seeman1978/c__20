@@ -27,6 +27,7 @@ void outputFile(const std::string& filename){
         exit(EXIT_FAILURE);
     }
     std::cout << file.rdbuf();
+    //put a file to string
     file.seekg(0);
     ostringstream ss;
     ss << file.rdbuf(); // reading data
