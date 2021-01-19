@@ -29,5 +29,9 @@ int main(){
         for (const auto& s : ansi_v){
             wcout << converter.from_bytes(s) << L' ';
         }
+        wcout << '\n';
+        for (const auto& s : ansi_v){
+            cout << s << ' ';
+        }
     }
 }
