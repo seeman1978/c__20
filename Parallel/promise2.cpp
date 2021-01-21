@@ -1,4 +1,8 @@
 //
+// Created by wq on 2021/1/21.
+//
+
+//
 // Created by 王强 on 2021/1/21.
 //
 
@@ -17,10 +21,10 @@ void dosomething(std::promise<std::string>& p){
         ostringstream o;
         o << "char " << c << " processed";
         string s = o.str();
-        p.set_value(move(s));
+        p.set_value_at_thread_exit(move(s));
     }
     catch (...) {
-        p.set_exception(current_exception());
+        p.set_exception_at_thread_exit(current_exception());
     }
 }
 
@@ -42,4 +46,5 @@ int main(){
     catch (...) {
         cerr << "exception: " << '\n';
     }
+
 }
