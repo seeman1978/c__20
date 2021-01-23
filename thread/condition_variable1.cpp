@@ -22,8 +22,8 @@ void thread1(){
 
 void thread2(){
     {
-        std::unique_lock<std::mutex> ul(readyMutex);
-        readyCondVar.wait(ul, []{return readyFlag;});
+        std::unique_lock<std::mutex> ul(readyMutex);    //cv的wait与unique_lock配合使用
+        readyCondVar.wait(ul, []{return readyFlag;});   //readyFlag为了处理假唤醒情况
     }
     std::cout << "done" << '\n';
 }
