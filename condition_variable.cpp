@@ -31,6 +31,7 @@ void producer()
 void consumer()
 {
     int nResult = 0;
+    //这段代码有问题，判断qPower.size() >0时，会出现异常
     while (!finished || qPower.size() >0)
     {
         std::unique_lock<std::mutex> lock {mm}; //获取lock
