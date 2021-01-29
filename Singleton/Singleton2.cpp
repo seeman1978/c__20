@@ -8,23 +8,20 @@
 class Singleton {
 public:
     static Singleton* GetInstance() {
-        if (instance_ == nullptr) {
+        if (!x_init) {
             std::lock_guard<std::mutex> lock(mutex_);
-            if (instance_ == nullptr) {
+            if (!x_init) {
                 instance_ = new Singleton;
+                x_init = true;
             }
         }
 
         return instance_;
     }
 
-    ~Singleton() = default;
-
-    // 释放资源。
-    static void Destroy() {
-        delete instance_;
-        instance_ = nullptr;
-    }
+    ~Singleton(){
+        std::cout << "Destroy Singleton Object\n";
+    };
 
     void PrintAddress() const {
         std::cout << this << std::endl;
@@ -39,10 +36,12 @@ private:
 private:
     static Singleton* instance_;
     static std::mutex mutex_;
+    static std::atomic<bool> x_init;
 };
 
 Singleton* Singleton::instance_ = nullptr;
 std::mutex Singleton::mutex_;
+std::atomic<bool> Singleton::x_init{false};
 
 int main() {
     Singleton* s1 = Singleton::GetInstance();
@@ -51,6 +50,9 @@ int main() {
     Singleton* s2 = Singleton::GetInstance();
     s2->PrintAddress();
 
-    Singleton::Destroy();
+    //释放内存，只需析构一次
+    delete s1;
+    //delete s2;
+
     return 0;
 }

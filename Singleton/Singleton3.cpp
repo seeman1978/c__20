@@ -9,10 +9,11 @@
 class Singleton {
 public:
     static Singleton& GetInstance() {
-        if (!instance_) {
+        if (!x_init) {
             std::lock_guard<std::mutex> lock(mutex_);
-            if (!instance_) {
+            if (!x_init) {
                 instance_.reset(new Singleton);
+                x_init = true;
             }
         }
 
@@ -30,15 +31,15 @@ public:
 private:
     Singleton() = default;
 
-
-
 private:
     static std::unique_ptr<Singleton> instance_;
     static std::mutex mutex_;
+    static std::atomic<bool> x_init;
 };
 
 std::unique_ptr<Singleton> Singleton::instance_;
 std::mutex Singleton::mutex_;
+std::atomic<bool> Singleton::x_init{false};
 
 int main() {
     Singleton& s1 = Singleton::GetInstance();
