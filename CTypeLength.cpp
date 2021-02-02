@@ -22,9 +22,15 @@ void f()
 
 int main()
 {
+    printf("byte length:%d\n", sizeof(std::byte));
     printf("char length:%d\n", sizeof(char));
+    printf("short length:%d\n", sizeof(short));
     printf("int length:%d\n", sizeof(int));
+    printf("long length:%d\n", sizeof(long));
+    printf("long long length:%d\n", sizeof(long long));
+    printf("float length:%d\n", sizeof(float));
     printf("double length:%d\n", sizeof(double));
+    printf("long double length:%d\n", sizeof(long double));
     CA a;
     printf("Class A length:%d\n", sizeof(CA));
 
