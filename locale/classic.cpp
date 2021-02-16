@@ -11,6 +11,18 @@
 
 int main(){
     using namespace std;
+    {
+        setlocale(LC_ALL, "sv_SE.UTF-8");      //// 用这句 GCC 和 VC编译器都支持输出宽字节,macos下不起作用(macos中不会影响wcout的locale，wcout会没有输出）
+        std::wcout.imbue(std::locale("sv_SE.UTF-8"));  //// 为何这句话不起作用 in GCC（wcout会没有输出）? 为何这句只支持VC,clang(macos)
+        wcout << L"中文\n";
+
+        vector<std::wstring> v = {L"ar", L"zebra", L"\x00f6grupp", L"Zebra", L"\x00e4ngel",
+                                  L"\x00e5r", L"f\x00f6rnamn"};
+
+        for (const auto& s : v) {
+            wcout << s << ' ';
+        }
+    }
 
     {
         setlocale(LC_ALL, "sv_SE.UTF-8");      //// 用这句 GCC 和 VC编译器都支持输出宽字节,macos下不起作用

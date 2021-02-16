@@ -20,7 +20,7 @@ std::string wstring_to_utf8(const std::wstring& str){
 int main(){
     try {
         std::string s = "nj: ä + \u20AC 1. 中文"; //20AC是€的unicode编码
-
+        std::cout << s << std::endl;
         std::wstring ws = utf8_to_wstring(s);
         //用 wcout 输出 str 时, wcout 首先调用 wcstombs() (即根据当前 local 转换, 如果没有设置local,则是经典的C local, 不认识中文)把 str 的内容转换后
         //交给控制台,结果自然什么都不显示.

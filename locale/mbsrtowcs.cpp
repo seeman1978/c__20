@@ -29,7 +29,7 @@ int main()
 {
     std::setlocale(LC_ALL, "en_US.utf8");
     const char8_t *mbstr = u8"z\u00df\u6c34\U0001f34c"; // or u8"zß水🍌",ß水🍌的编码是unicode编码。通过u8前缀，系统会自动把unicode编码字符转换为utf8编码字符
-    //zß水🍌的utf编码为 7a c39f e6b064 f09f8d8c.
+    //zß水🍌的utf-8编码为 7a c39f e6b064 f09f8d8c.
     //zß水🍌的string和wstring的长度相同，是个巧合。
 
     int nLength = std::char_traits<char8_t>::length(mbstr);
