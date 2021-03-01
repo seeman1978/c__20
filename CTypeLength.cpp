@@ -24,6 +24,7 @@ int main()
 {
     printf("byte length:%lu\n", sizeof(std::byte));
     printf("char length:%lu\n", sizeof(char));
+    printf("bool length:%lu\n", sizeof(bool));
     printf("short length:%lu\n", sizeof(short));
     printf("int length:%lu\n", sizeof(int));
     printf("long length:%lu\n", sizeof(long));
