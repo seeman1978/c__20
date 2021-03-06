@@ -7,6 +7,7 @@
 #include <thread>
 #include <iostream>
 #include <future>
+#include <condition_variable>
 
 std::queue<int> g_queue;
 std::mutex g_queueMuetx;
@@ -24,14 +25,14 @@ void provider(int val){
 }
 
 void consumer(int num){
+
     while (true){
         int val;
-        {
-            std::unique_lock<std::mutex> ul(g_queueMuetx);
-            g_queueCV.wait(ul, []{return !g_queue.empty();});
-            val = g_queue.front();
-            g_queue.pop();
-        }
+        std::unique_lock<std::mutex> ul(g_queueMuetx);
+        g_queueCV.wait(ul, []{return !g_queue.empty();});
+        val = g_queue.front();
+        g_queue.pop();
+
         std::cout << "consumer " << num << ": " << val << '\n';
     }
 }
