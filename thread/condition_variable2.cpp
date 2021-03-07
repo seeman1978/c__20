@@ -44,6 +44,8 @@ void consumer()
 
 int main()
 {
+    auto start = std::chrono::high_resolution_clock::now();
+
     std::vector<int> vec;
     vec.reserve(nLength);
     for (int i = 1; i < nLength+1; ++i) {
@@ -52,5 +54,9 @@ int main()
     std::thread t1{producer<std::vector<int>::const_iterator>, vec.cbegin(), vec.cend()}, t2{consumer};
     t1.join();
     t2.join();
+
+    auto stop = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double, std::milli> ms = stop - start;
+    std::cout << "took " << ms.count() << " ms\n";
     return 0;
 }
