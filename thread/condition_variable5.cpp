@@ -1,6 +1,6 @@
 //
 // Created by 王强 on 2021/3/5.
-//
+// 定长数据、多个生产者、一个消费者
 
 #include <vector>
 #include <mutex>
@@ -57,7 +57,7 @@ void parallel_compute(Iterator first, Iterator last){
     unsigned long const block_size = length/(num_threads-1);
 
     std::vector<std::thread> threads;
-    threads.reserve(num_threads-1); //有一个计算可以在主线程里做
+    threads.reserve(num_threads);
 
     Iterator block_start = first;
     // 创建生产者线程
@@ -67,10 +67,10 @@ void parallel_compute(Iterator first, Iterator last){
         threads.emplace_back(std::thread(producer<Iterator>, block_start, block_end));
         block_start = block_end;
     }
+    threads.emplace_back(std::thread(producer<Iterator>, block_start, last));
 
     //创建消费者线程
     threads.emplace_back(std::thread(consumer));
-    producer<Iterator>(block_start, last);
 
     //等待线程结束
     std::for_each(threads.begin(), threads.end(), std::mem_fn(&std::thread::join));
@@ -78,13 +78,17 @@ void parallel_compute(Iterator first, Iterator last){
 
 int main()
 {
+    auto start = std::chrono::high_resolution_clock::now();
     std::vector<int> vec;
     vec.reserve(nLength);
     for (int i = 1; i < nLength+1; ++i) {
         vec.emplace_back(i);
     }
 
-    parallel_compute(vec.begin(), vec.end());
+    parallel_compute(vec.cbegin(), vec.cend());
 
+    auto stop = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double, std::milli> ms = stop - start;
+    std::cout << "took " << ms.count() << " ms\n";
     return 0;
 }
