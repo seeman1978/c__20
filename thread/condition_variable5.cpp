@@ -11,7 +11,7 @@
 std::mutex mm;  //互斥锁
 std::condition_variable cv; //条件变量
 std::queue<int> qPower;
-const int nLength = 100;
+const int nLength = 1000;
 
 template<typename Iterator>
 void producer(Iterator first, Iterator last)

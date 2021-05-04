@@ -12,7 +12,7 @@
 std::mutex mm;  //互斥锁
 std::condition_variable cv; //条件变量
 std::queue<int> qPower;
-const int nLength = 100;
+const int nLength = 1000;
 int nResult = 0;    //结果
 
 template<typename Iterator>
