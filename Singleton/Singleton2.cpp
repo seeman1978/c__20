@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <mutex>
+#include <atomic>
 
 class Singleton {
 public:
