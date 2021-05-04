@@ -1,14 +1,11 @@
 //
 // Created by wq on 2021/5/2.
 //
-#include <vector>
-#include <c++/v1/iostream>
 
-void algo(std::vector<int>& v){
-    std::sort(v.begin(), v.end(), [](int x, int y){return abs(x)<abs(y);});
-}
+#include <iostream>
 
 struct S2 {
+public:
     void f(int i);
 
 public:
@@ -34,5 +31,4 @@ void S2::f(int i)
 int main(){
     S2 s;
     s.f(9);
-
 }
