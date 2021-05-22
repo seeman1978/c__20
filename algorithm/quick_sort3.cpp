@@ -5,9 +5,6 @@
 #include <vector>
 #include <iostream>
 
-//
-// Created by 王强 on 2021/5/17.
-//
 template<typename ForwardIterator>
 void quick_sort(ForwardIterator first, ForwardIterator last){
     if(first == last){

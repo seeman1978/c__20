@@ -2,16 +2,8 @@
 // Created by wq on 2021/5/19.
 //
 
-//
-// Created by 王强 on 2021/5/17.
-//
-
 #include <vector>
 #include <iostream>
-
-//
-// Created by 王强 on 2021/5/17.
-//
 
 void quick_sort(int arr[], int first, int last){
     if(first < last){
