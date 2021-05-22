@@ -9,7 +9,8 @@ void quick_sort(ForwardIterator first, ForwardIterator last){
     if(first == last){
         return;
     }
-    auto pivot = *first;//std::next(first, std::distance(first, last)/2);
+    auto pivot = *first;
+
     ForwardIterator begin=first, end=last;
     while(begin!=end){
         while (begin!=end && *(end) >= pivot){// 从右向左找第一个小于pivot的数
