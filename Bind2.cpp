@@ -42,7 +42,7 @@ int main(){
     std::default_random_engine e;
     std::uniform_int_distribution<> d(0, 10);
     auto rnd = std::bind(d, e);
-    for(int n=0; n<10; ++n){
+    for(int m=0; m<10; ++m){
         std::cout << rnd() << " ";
     }
     std::cout << '\n';
