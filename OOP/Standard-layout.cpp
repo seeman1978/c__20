@@ -47,7 +47,7 @@ struct StandardLayout6 : StandardLayout1, StandardLayout2 {
     // one class in the hierarchy has non-static data members
 };
 
-struct NonStandardLayout3 : StandardLayout1, StandardLayout5 {
+struct NonStandardLayout3 : StandardLayout1, StandardLayout3 {
     // can use multiple inheritance as long only
     // one class in the hierarchy has non-static data members
 };
@@ -60,7 +60,7 @@ struct StandardLayout7 {
 
 struct StandardLayout8 {
 public:
-    StandardLayout8(int x) : x(x) {} // user-provided ctors are ok
+    explicit StandardLayout8(int x) : x(x) {} // user-provided ctors are ok
 // ok to have non-static data members and other members with different access
 private:
     int x;
