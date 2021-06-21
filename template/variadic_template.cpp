@@ -25,6 +25,10 @@ struct Multiply<>{
 };
 
 // 类型模版
+
+template<typename I, template<typename> class... B>
+struct Container{};
+
 template<typename ... nums>
 struct MultiplyT;
 
@@ -33,12 +37,13 @@ struct MultiplyT<first, last...>{
     static const first val = MultiplyT<first>::value * MultiplyT<last... >::val;
 };
 
-template<>
-struct MultiplyT{
-    static const long val = 1;
+
+template<typename I>
+struct MultiplyT<I>{
+    static const I val = 1;
 };
 
 int main(){
     std::cout << Multiply<2, 3, 4, 5>::val << '\n';
-    std::cout << MultiplyT<float, 22, 44, 66, 88, 9>::val << '\n';
+    std::cout << MultiplyT<22, 44, 66, 88, 9>::val << '\n';
 }
