@@ -13,7 +13,7 @@ void thread1() {
 void thread2() {
 	while (b.load(std::memory_order_relaxed) != 2)
 	{//自选等待
-		;
+
 	}
 	std::cout << a.load(std::memory_order_relaxed) << '\n';	//a可能是0，也可能是1
 }
