@@ -16,6 +16,12 @@ enum class color : int
     yellow=1, // C++11 allows the extra comma
 };
 
+//error . in enum class 不可以把另一个枚举变量作为成员变量
+//enum class color2 : int{
+//    color color1; //error
+//    green = 2;
+//};
+
 int main(){
     altitude a;
     a = altitude::low;
