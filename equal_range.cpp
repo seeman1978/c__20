@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <vector>
 #include <iostream>
+#include <set>
 
 struct S
 {
@@ -40,7 +41,15 @@ int main()
     for ( auto i = p2.first; i != p2.second; ++i ){
         std::cout << i->name << ' ';
     }
+    std::cout << '\n';
+    {
+        std::string prefix{"a/"};
+        std::set<std::string> myset{"a/b", "a/c", "b/d", "c/a", "c/a/b", "a/b/c"};
 
+        for (auto it = myset.lower_bound(prefix); it != std::end(myset) && it->compare(0, prefix.size(), prefix) == 0; ++it)
+            std::cout << *it << " ";
+        std::cout << '\n';
+    }
 
 
 }

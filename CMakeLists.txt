@@ -8,6 +8,6 @@ set(libpq_DIR /usr/local/pqsql/lib)
 
 #LINK_DIRECTORIES(/home/qiangwang/CLionProjects/c__20/Shared_library/cmake-build-debug/lib)
 
-add_executable(c__20 thread/thread3.cpp)
+add_executable(c__20 equal_range.cpp)
 target_link_libraries(c__20 pthread)
 #TARGET_LINK_LIBRARIES(c__20 libshared_library.so)
