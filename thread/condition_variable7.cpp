@@ -1,17 +1,25 @@
 //
-// Created by 王强 on 2021/3/5.
-// 定长数据、多个生产者、一个消费者
+// Created by qiangwang on 2021/9/18.
+//
+
+//
+// Created by wq on 2021/3/7.
+/// 定长数据、多个生产者、多个消费者
+/// 用 -1 表示毒丸
 
 #include <vector>
 #include <mutex>
 #include <queue>
 #include <iostream>
 #include <thread>
+#include <functional>
+#include <condition_variable>
 
 std::mutex mm;  //互斥锁
 std::condition_variable cv; //条件变量
 std::queue<int> qPower;
-const int nLength = 1000;
+const int nLength = 10;
+int nResult = 0;    //结果
 
 template<typename Iterator>
 void producer(Iterator first, Iterator last)
@@ -26,17 +34,18 @@ void producer(Iterator first, Iterator last)
 
 void consumer()
 {
-    int nResult = 0;
-
-    for (int i = 1; i < nLength+1; ++i) {
+    while (true) {
         std::unique_lock<std::mutex> lock {mm}; //获取lock
         cv.wait(lock, []{return !qPower.empty();});          //释放lock，并等待
         auto m = qPower.front();
-        qPower.pop();
-        nResult += m;
+        if (m == -1){ //毒丸，退出线程
+            break;
+        }
+        else{
+            qPower.pop();
+            nResult += m;
+        }
     }
-
-    std::cout << "sum is " << nResult << std::endl;
 }
 
 
@@ -56,24 +65,33 @@ void parallel_compute(Iterator first, Iterator last){
             std::min(hardware_threads!=0 ? hardware_threads : 2, max_threads);
     unsigned long const block_size = num_threads==1? length : length/(num_threads-1);
 
-    std::vector<std::thread> threads;
-    threads.reserve(num_threads);
+    std::vector<std::thread> sthreads;
 
     Iterator block_start = first;
     // 创建生产者线程
     for (int i=0; i<(num_threads-2); ++i){
         Iterator block_end = block_start;
         std::advance(block_end, block_size);
-        threads.emplace_back(std::thread(producer<Iterator>, block_start, block_end));
+        sthreads.emplace_back(std::thread(producer<Iterator>, block_start, block_end));
         block_start = block_end;
     }
-    threads.emplace_back(std::thread(producer<Iterator>, block_start, last));
+    sthreads.emplace_back(std::thread(producer<Iterator>, block_start, last));
+
+    //等待生产者线程结束
+    std::for_each(sthreads.begin(), sthreads.end(), std::mem_fn(&std::thread::join));
+    //队列中放一个毒丸，用于结束消费者
+    {
+        std::unique_lock<std::mutex> lock {mm};
+        qPower.push(-1);
+    }
+    cv.notify_all();
 
     //创建消费者线程
-    threads.emplace_back(std::thread(consumer));
-
-    //等待线程结束
-    std::for_each(threads.begin(), threads.end(), std::mem_fn(&std::thread::join));
+    std::vector<std::thread> cthreads;
+    cthreads.emplace_back(std::thread(consumer));
+    cthreads.emplace_back(std::thread(consumer));
+    //等待消费者线程结束
+    std::for_each(cthreads.begin(), cthreads.end(), std::mem_fn(&std::thread::join));
 }
 
 int main()
@@ -89,6 +107,6 @@ int main()
 
     auto stop = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double, std::milli> ms = stop - start;
-    std::cout << "took " << ms.count() << " ms\n";
+    std::cout << "rusult is " << nResult << " took " << ms.count() << " ms\n";
     return 0;
 }
