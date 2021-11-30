@@ -1,4 +1,8 @@
 //
+// Created by qiangwang on 2021/9/18.
+//
+
+//
 // Created by wq on 2021/3/7.
 /// 定长数据、多个生产者、多个消费者
 /// 用 -1 表示毒丸
@@ -8,12 +12,13 @@
 #include <queue>
 #include <iostream>
 #include <thread>
-#include <unistd.h>
+#include <functional>
+#include <condition_variable>
 
 std::mutex mm;  //互斥锁
 std::condition_variable cv; //条件变量
 std::queue<int> qPower;
-const int nLength = 1000;
+const int nLength = 10;
 int nResult = 0;    //结果
 
 template<typename Iterator>
@@ -60,25 +65,20 @@ void parallel_compute(Iterator first, Iterator last){
             std::min(hardware_threads!=0 ? hardware_threads : 2, max_threads);
     unsigned long const block_size = num_threads==1? length : length/(num_threads-1);
 
-    std::vector<std::thread> threads;
-    threads.reserve(num_threads);
+    std::vector<std::thread> sthreads;
 
     Iterator block_start = first;
     // 创建生产者线程
     for (int i=0; i<(num_threads-2); ++i){
         Iterator block_end = block_start;
         std::advance(block_end, block_size);
-        threads.emplace_back(std::thread(producer<Iterator>, block_start, block_end));
+        sthreads.emplace_back(std::thread(producer<Iterator>, block_start, block_end));
         block_start = block_end;
     }
-    threads.emplace_back(std::thread(producer<Iterator>, block_start, last));
-
-    //创建消费者线程
-    threads.emplace_back(std::thread(consumer));
-    threads.emplace_back(std::thread(consumer));
+    sthreads.emplace_back(std::thread(producer<Iterator>, block_start, last));
 
     //等待生产者线程结束
-    std::for_each(threads.begin(), threads.end()-2, std::mem_fn(&std::thread::join));
+    std::for_each(sthreads.begin(), sthreads.end(), std::mem_fn(&std::thread::join));
     //队列中放一个毒丸，用于结束消费者
     {
         std::unique_lock<std::mutex> lock {mm};
@@ -86,8 +86,12 @@ void parallel_compute(Iterator first, Iterator last){
     }
     cv.notify_all();
 
+    //创建消费者线程
+    std::vector<std::thread> cthreads;
+    cthreads.emplace_back(std::thread(consumer));
+    cthreads.emplace_back(std::thread(consumer));
     //等待消费者线程结束
-    std::for_each(threads.end()-2, threads.end(), std::mem_fn(&std::thread::join));
+    std::for_each(cthreads.begin(), cthreads.end(), std::mem_fn(&std::thread::join));
 }
 
 int main()

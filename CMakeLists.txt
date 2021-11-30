@@ -4,4 +4,10 @@ project(c__20)
 set(CMAKE_CXX_STANDARD 20)
 set(libpq_DIR /usr/local/pqsql/lib)
 
-add_executable(c__20 thread/condition_variable6.cpp)
+#include_directories(./Shared_library)
+
+#LINK_DIRECTORIES(/home/qiangwang/CLionProjects/c__20/Shared_library/cmake-build-debug/lib)
+
+add_executable(c__20 filesystem/tmpnam.cpp)
+
+#TARGET_LINK_LIBRARIES(c__20 libshared_library.so)

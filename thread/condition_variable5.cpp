@@ -54,7 +54,7 @@ void parallel_compute(Iterator first, Iterator last){
             std::thread::hardware_concurrency();
     int const num_threads =
             std::min(hardware_threads!=0 ? hardware_threads : 2, max_threads);
-    unsigned long const block_size = length/(num_threads-1);
+    unsigned long const block_size = num_threads==1? length : length/(num_threads-1);
 
     std::vector<std::thread> threads;
     threads.reserve(num_threads);
