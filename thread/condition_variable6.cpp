@@ -8,6 +8,7 @@
 #include <queue>
 #include <iostream>
 #include <thread>
+#include <unistd.h>
 
 std::mutex mm;  //互斥锁
 std::condition_variable cv; //条件变量
