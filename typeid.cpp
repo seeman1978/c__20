@@ -5,6 +5,7 @@
 #include <iostream>
 #include <typeinfo>
 #include <typeindex>
+#include <cassert>
 
 class Base {
 public:
