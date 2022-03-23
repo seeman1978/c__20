@@ -36,6 +36,17 @@ constexpr auto output2(const std::string& mine, const F& func) {
     };
 }
 
+template<typename F>
+constexpr auto output3(const std::string& mine, const F& func) {
+    return [func, &mine](auto&&... args){
+        using R = decltype(func(std::forward<decltype(args)>(args)...));
+        std::string sss = mine;
+        int result = func(std::forward<decltype(args)>(args)...);
+        std::cout << result << '\n';
+        return result;
+    };
+}
+
 void hello_impl() {
     std::cout << "hello, world!";
 }
@@ -66,4 +77,6 @@ int main(){
 
     auto integer1 = output2("wq5", hello_impl1)(111);
     auto str1 = output2("wq6", hello_impl2)("out", 111);
+    auto integer2 = output3("wq7", hello_impl1)(888);
+    //auto str2 = output3("wq6", hello_impl2)("out", 111);  // error: No viable conversion from 'std::basic_string<char>' to 'int'
 }
