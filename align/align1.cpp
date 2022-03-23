@@ -32,6 +32,8 @@ struct MixedData2
 };
 
 int main(){
+    float f1{1.23};
+    int i = f1*100;
     MyData data{};
     std::cout << sizeof data << "\n";
     MixedData mix_data{};
