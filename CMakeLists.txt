@@ -1,13 +1,13 @@
 cmake_minimum_required(VERSION 3.15)
 project(c__20)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 14)
 set(libpq_DIR /usr/local/pqsql/lib)
 
 #include_directories(./Shared_library)
 
 #LINK_DIRECTORIES(/home/qiangwang/CLionProjects/c__20/Shared_library/cmake-build-debug/lib)
 
-add_executable(c__20 random/random1.cpp)
+add_executable(c__20 function/function5.cpp)
 target_link_libraries(c__20 pthread)
 #TARGET_LINK_LIBRARIES(c__20 libshared_library.so)
