@@ -7,16 +7,21 @@
 //
 
 #include <iostream>
+#include <memory>
+
 struct connection{
     connection()=default;
-    connection(int i):m_i{i}{
+    explicit connection(int i):m_i{i}{
 
     }
     ~connection(){
         std::cout << m_i << " destroy connection\n";
     }
+    void print() const{
+        std::cout << m_i << " \n";
+    }
     std::string strConn;
-    int m_i;
+    int m_i{};
 };
 
 void end_connection(connection *p){
@@ -25,8 +30,13 @@ void end_connection(connection *p){
 }
 
 int main(){
-    //std::make_shared does not allow a custom deleter.
+    //std::make_unique does not allow a custom deleter.
     std::unique_ptr<connection, decltype(end_connection)*> pConn {new connection(1), end_connection};
 
     std::unique_ptr<connection> pConn2 = std::make_unique<connection>(2);
+    std::unique_ptr<connection> pConn3 = std::move(pConn2);
+    pConn3->print();
+    if (pConn2 != nullptr){
+        pConn2->print();
+    }
 }
