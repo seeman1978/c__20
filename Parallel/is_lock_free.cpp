@@ -17,7 +17,7 @@ struct B{
 
 int main(){
     std::cout << std::boolalpha
-        << "std::atomic<A> is lokk free? "
+        << "std::atomic<A> is lock free? "
         << std::atomic<A>{}.is_lock_free() << '\n'
         << "std::atomic<B> is lock free? "
         << std::atomic<B>{}.is_lock_free() << '\n';
