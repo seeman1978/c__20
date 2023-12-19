@@ -57,6 +57,23 @@ struct E{
     std::weak_ptr<E> m_pE;
 };
 
+struct G;
+struct F{
+    F()=default;
+    ~F(){
+        std::cout << "destroy F" << std::endl;
+    }
+    std::weak_ptr<G> m_pG;
+};
+
+struct G{
+    G()=default;
+    ~G(){
+        std::cout << "destroy G" << std::endl;
+    }
+    std::weak_ptr<F> m_pF;
+};
+
 void observer(){
     using std::cout;
     cout << "use_count == " << gw.use_count() << ": ";
@@ -102,5 +119,12 @@ int main(){
 
         pE1->m_pE = pE2;
         pE2->m_pE = pE1;
+    }
+    {
+        std::shared_ptr<F> pF = std::make_shared<F>();
+        std::shared_ptr<G> pG = std::make_shared<G>();
+
+        pF->m_pG = pG;
+        pG->m_pF = pF;
     }
 }
