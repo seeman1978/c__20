@@ -32,7 +32,7 @@ X* getInstance(){
 }*/
 //上面这段代码的改进
 /*
-std::atomic<X*> pX = nullptr;;
+std::atomic<X*> pX = nullptr;
 X* getInstance(){
     if (pX == nullptr){
         std::lock_guard<std::mutex> lg(lx);
@@ -42,7 +42,7 @@ X* getInstance(){
     }
     return pX;
 }
- */
+*/
 
 X* getInstance(){
     if (!x_init){
