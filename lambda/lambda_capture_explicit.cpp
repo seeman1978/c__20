@@ -2,8 +2,8 @@
 // Created by wq on 2021/5/4.
 //
 
-#include <c++/v1/string>
-#include <c++/v1/iostream>
+#include <string>
+#include <iostream>
 
 int main(){
     int i = 9;

@@ -2,7 +2,7 @@
 // Created by wq on 2021/5/4.
 //
 #include <vector>
-#include <c++/v1/iostream>
+#include <iostream>
 
 //如果v[i]%m == 0，则输出v[i]到输出流
 void print_modulo(const std::vector<int>& v, int m){

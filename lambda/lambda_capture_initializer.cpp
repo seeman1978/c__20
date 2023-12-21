@@ -1,8 +1,8 @@
 //
 // Created by wq on 2021/5/4.
 //
-#include <c++/v1/memory>
-#include <c++/v1/iostream>
+#include <memory>
+#include <iostream>
 
 int main(){
     std::unique_ptr<int> p {new int{9} };

@@ -2,7 +2,7 @@
 // Created by wq on 2021/5/4.
 //
 
-#include <c++/v1/iostream>
+#include <iostream>
 
 int main(){
     []{std::cout << "hello world" << '\n';}();  //返回类型void
