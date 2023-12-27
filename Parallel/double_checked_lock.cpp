@@ -9,7 +9,7 @@
 struct X{
     int i=0;
     explicit X(int j):i{j}{
-
+        std::cout << i << '\n';
     }
 };
 
